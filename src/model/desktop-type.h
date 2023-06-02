@@ -4,8 +4,8 @@
 
 #include <ostream>
 
-#include "model/focus-cycle.h"
-#include "utils.h"
+#include "focus-cycle.h"
+#include "../utils.h"
 
 /*
  * These constants are used to make sure that different instances of
@@ -13,11 +13,11 @@
  * the same place in an std::map
  */
 const unsigned long long DESKTOP_SORT_KEY = 1,
-      ALL_DESKTOP_SORT_KEY = 2,
-      ICON_DESKTOP_SORT_KEY = 3,
-      MOVING_DESKTOP_SORT_KEY = 4,
-      RESIZING_DESKTOP_SORT_KEY = 5,
-      USER_DESKTOP_SORT_KEY = 6;
+                         ALL_DESKTOP_SORT_KEY = 2,
+                         ICON_DESKTOP_SORT_KEY = 3,
+                         MOVING_DESKTOP_SORT_KEY = 4,
+                         RESIZING_DESKTOP_SORT_KEY = 5,
+                         USER_DESKTOP_SORT_KEY = 6;
 
 /**
  * This describes both 'real' desktops that the user interacts with, and
@@ -28,37 +28,43 @@ const unsigned long long DESKTOP_SORT_KEY = 1,
  * at once. This causes some issues (hence `AllDesktops`) but it works well
  * in practice.
  */
-struct Desktop
-{
-    Desktop(const unsigned long long _sort_key) : sort_key(_sort_key)
-    {};
+struct Desktop {
+    Desktop(const unsigned long long _sort_key) : sort_key(_sort_key) {
+    };
 
-    Desktop() : sort_key(DESKTOP_SORT_KEY)
-    {};
+    Desktop() : sort_key(DESKTOP_SORT_KEY) {
+    };
 
-    virtual ~Desktop()
-    {};
+    virtual ~Desktop() {
+    };
 
-    virtual bool is_user_desktop() const
-    { return false; }
+    virtual bool is_user_desktop() const {
+        return false;
+    }
 
-    virtual bool is_all_desktop() const
-    { return false; }
+    virtual bool is_all_desktop() const {
+        return false;
+    }
 
-    virtual bool is_icon_desktop() const
-    { return false; }
+    virtual bool is_icon_desktop() const {
+        return false;
+    }
 
-    virtual bool is_moving_desktop() const
-    { return false; }
+    virtual bool is_moving_desktop() const {
+        return false;
+    }
 
-    virtual bool is_resizing_desktop() const
-    { return false; }
+    virtual bool is_resizing_desktop() const {
+        return false;
+    }
 
-    bool operator<(const Desktop &other) const
-    { return sort_key < other.sort_key; }
+    bool operator<(const Desktop &other) const {
+        return sort_key < other.sort_key;
+    }
 
-    bool operator==(const Desktop &other) const
-    { return sort_key == other.sort_key; }
+    bool operator==(const Desktop &other) const {
+        return sort_key == other.sort_key;
+    }
 
     const unsigned long long sort_key;
 };
@@ -70,21 +76,20 @@ struct Desktop
  * track of its focus history, so that when the user returns to it, their
  * focus is preserved to the last window they were on.
  */
-struct UserDesktop : public Desktop
-{
+struct UserDesktop : public Desktop {
     UserDesktop(const unsigned long long _desktop) :
-        desktop(_desktop), Desktop(_desktop + USER_DESKTOP_SORT_KEY)
-    {};
+        desktop(_desktop), Desktop(_desktop + USER_DESKTOP_SORT_KEY) {
+    };
 
-    bool is_user_desktop() const
-    { return true; }
+    bool is_user_desktop() const {
+        return true;
+    }
 
     const unsigned long long desktop;
     FocusCycle focus_cycle;
 };
 
-static std::ostream &operator<<(std::ostream &out, const UserDesktop &desktop)
-{
+static std::ostream &operator<<(std::ostream &out, const UserDesktop &desktop) {
     out << "[UserDesktop " << desktop.desktop << "]";
     return out;
 }
@@ -93,19 +98,18 @@ static std::ostream &operator<<(std::ostream &out, const UserDesktop &desktop)
  * A virtual desktop describing windows which are visible on all 'real'
  * desktops.
  */
-struct AllDesktops : public Desktop
-{
-    AllDesktops() : Desktop(ALL_DESKTOP_SORT_KEY)
-    {};
+struct AllDesktops : public Desktop {
+    AllDesktops() : Desktop(ALL_DESKTOP_SORT_KEY) {
+    };
 
-    bool is_all_desktop() const
-    { return true; }
+    bool is_all_desktop() const {
+        return true;
+    }
 
     FocusCycle focus_cycle;
 };
 
-static std::ostream &operator<<(std::ostream &out, const AllDesktops &desktop)
-{
+static std::ostream &operator<<(std::ostream &out, const AllDesktops &desktop) {
     out << "[All Desktops]";
     return out;
 }
@@ -113,17 +117,16 @@ static std::ostream &operator<<(std::ostream &out, const AllDesktops &desktop)
 /**
  * A virtual desktop describing windows which are currently hidden.
  */
-struct IconDesktop : public Desktop
-{
-    IconDesktop() : Desktop(ICON_DESKTOP_SORT_KEY)
-    {};
+struct IconDesktop : public Desktop {
+    IconDesktop() : Desktop(ICON_DESKTOP_SORT_KEY) {
+    };
 
-    bool is_icon_desktop() const
-    { return true; }
+    bool is_icon_desktop() const {
+        return true;
+    }
 };
 
-static std::ostream &operator<<(std::ostream &out, const IconDesktop &desktop)
-{
+static std::ostream &operator<<(std::ostream &out, const IconDesktop &desktop) {
     out << "[Icon Desktop]";
     return out;
 }
@@ -131,17 +134,16 @@ static std::ostream &operator<<(std::ostream &out, const IconDesktop &desktop)
 /**
  * A virtual desktop for a window which is currently being moved.
  */
-struct MovingDesktop : public Desktop
-{
-    MovingDesktop() : Desktop(MOVING_DESKTOP_SORT_KEY)
-    {};
+struct MovingDesktop : public Desktop {
+    MovingDesktop() : Desktop(MOVING_DESKTOP_SORT_KEY) {
+    };
 
-    bool is_moving_desktop() const
-    { return true; }
+    bool is_moving_desktop() const {
+        return true;
+    }
 };
 
-static std::ostream &operator<<(std::ostream &out, const MovingDesktop &desktop)
-{
+static std::ostream &operator<<(std::ostream &out, const MovingDesktop &desktop) {
     out << "[Moving Desktop]";
     return out;
 }
@@ -149,35 +151,27 @@ static std::ostream &operator<<(std::ostream &out, const MovingDesktop &desktop)
 /**
  * A virtual desktop for a window which is currently being resized.
  */
-struct ResizingDesktop : public Desktop
-{
-    ResizingDesktop() : Desktop(RESIZING_DESKTOP_SORT_KEY)
-    {};
+struct ResizingDesktop : public Desktop {
+    ResizingDesktop() : Desktop(RESIZING_DESKTOP_SORT_KEY) {
+    };
 
-    bool is_resizing_desktop() const
-    { return true; }
+    bool is_resizing_desktop() const {
+        return true;
+    }
 };
 
-static std::ostream &operator<<(std::ostream &out, const ResizingDesktop &desktop)
-{
+static std::ostream &operator<<(std::ostream &out, const ResizingDesktop &desktop) {
     out << "[Resizing Desktop]";
     return out;
 }
 
-static std::ostream &operator<<(std::ostream &out, const Desktop &desktop)
-{
-    if (desktop.is_user_desktop())
-        out << dynamic_cast<const UserDesktop&>(desktop);
-    else if (desktop.is_all_desktop())
-        out << dynamic_cast<const AllDesktops&>(desktop);
-    else if (desktop.is_icon_desktop())
-        out << dynamic_cast<const IconDesktop&>(desktop);
-    else if (desktop.is_moving_desktop())
-        out << dynamic_cast<const MovingDesktop&>(desktop);
-    else if (desktop.is_resizing_desktop())
-        out << dynamic_cast<const ResizingDesktop&>(desktop);
-    else
-        out << "[Desktop]";
+static std::ostream &operator<<(std::ostream &out, const Desktop &desktop) {
+    if (desktop.is_user_desktop()) out << dynamic_cast<const UserDesktop&>(desktop);
+    else if (desktop.is_all_desktop()) out << dynamic_cast<const AllDesktops&>(desktop);
+    else if (desktop.is_icon_desktop()) out << dynamic_cast<const IconDesktop&>(desktop);
+    else if (desktop.is_moving_desktop()) out << dynamic_cast<const MovingDesktop&>(desktop);
+    else if (desktop.is_resizing_desktop()) out << dynamic_cast<const ResizingDesktop&>(desktop);
+    else out << "[Desktop]";
 
     return out;
 }
@@ -186,8 +180,7 @@ static std::ostream &operator<<(std::ostream &out, const Desktop &desktop)
  * Like std::less<T>, but for pointers.
  */
 template <typename T>
-struct PointerLess
-{
+struct PointerLess {
     /**
      * Compares a pair of Desktop pointers. This is used because Desktop must be
      * stored in structures as a pointer, due to the need for downcasting to
@@ -197,17 +190,12 @@ struct PointerLess
      * is less than any other pointer, with the exception of other null
      * pointers.
      */
-    bool operator()(const T *a, const T* b) const
-    {
-        if (!a && !b)
-            return false;
-        else if (!a)
-            return true;
-        else if (!b)
-            return false;
-        else
-            return *a < *b;
+    bool operator()(const T *a, const T *b) const {
+        if (!a && !b) return false;
+        else if (!a) return true;
+        else if (!b) return false;
+        else return *a < *b;
     }
 };
 
-#endif
+#endif // ifndef __SMALLWM_DESKTOP_TYPE__

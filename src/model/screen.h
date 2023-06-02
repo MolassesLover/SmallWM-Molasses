@@ -2,7 +2,7 @@
 #ifndef __SMALLWM_SCREEN_MODEL__
 #define __SMALLWM_SCREEN_MODEL__
 
-#include "common.h"
+#include "../common.h"
 
 #include <ios>
 #include <map>
@@ -35,32 +35,30 @@ struct Crt {
 
     Crt(int _id) :
         left(NULL), right(NULL), top(NULL), bottom(NULL), id(_id),
-        m_deleting(false)
-    {}
+        m_deleting(false) {
+    }
 
-    ~Crt()
-    {
+    ~Crt() {
         m_deleting = true;
 
         // Note that we have to break all links when deleting the screen, since
         // we don't want to get trapped in a cycle
-        if (left && !left->m_deleting)
-        {
+        if (left && !left->m_deleting) {
             left->right = NULL;
             delete left;
         }
-        if (right && !right->m_deleting)
-        {
+
+        if (right && !right->m_deleting) {
             right->left = NULL;
             delete right;
         }
-        if (top && !top->m_deleting)
-        {
+
+        if (top && !top->m_deleting) {
             top->bottom = NULL;
             delete top;
         }
-        if (bottom && !bottom->m_deleting)
-        {
+
+        if (bottom && !bottom->m_deleting) {
             bottom->top = NULL;
             delete bottom;
         }
@@ -77,32 +75,34 @@ private:
  */
 class CrtManager {
 public:
-    CrtManager() : m_root(NULL)
-    {}
+CrtManager() : m_root(NULL) {
+}
 
-    ~CrtManager()
-    { delete m_root; }
+~CrtManager() {
+    delete m_root;
+}
 
-    Crt *root() const
-    { return m_root; }
+Crt * root() const {
+    return m_root;
+}
 
-    Crt *screen_of_coord(Dimension, Dimension) const;
-    const Box &box_of_screen(Crt*) const;
-    Crt *screen_of_box(const Box &box);
+Crt * screen_of_coord(Dimension, Dimension) const;
+const Box &box_of_screen(Crt *) const;
+Crt * screen_of_box(const Box &box);
 
-    void rebuild_graph(std::vector<Box>&);
+void rebuild_graph(std::vector<Box>&);
 
-    void dump(std::ostream&);
+void dump(std::ostream&);
 
 private:
-    int build_node(Crt*, std::map<Dimension2D, Box>&, int);
-    void build_id_map(Crt*, std::map<int, Crt*>&);
+int build_node(Crt *, std::map<Dimension2D, Box>&, int);
+void build_id_map(Crt *, std::map<int, Crt *>&);
 
-    /// The root screen is located at (0, 0). Guaranteed not to be NULL
-    Crt *m_root;
+/// The root screen is located at (0, 0). Guaranteed not to be NULL
+Crt *m_root;
 
-    /// The bounding box of each screen
-    std::map<Crt*, Box> m_boxes;
+/// The bounding box of each screen
+std::map<Crt *, Box> m_boxes;
 };
 
-#endif
+#endif // ifndef __SMALLWM_SCREEN_MODEL__

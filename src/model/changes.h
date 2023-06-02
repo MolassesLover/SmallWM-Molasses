@@ -7,7 +7,7 @@
 #include <queue>
 #include <vector>
 
-#include "common.h"
+#include "../common.h"
 #include "desktop-type.h"
 
 /**
@@ -18,71 +18,80 @@
  * This layer is used to notify the Xlib-interacting parts that changes have
  * occurred which require some kind of change in the user interface.
  */
-struct Change
-{
-    virtual ~Change()
-    {};
+struct Change {
+    virtual ~Change() {
+    };
 
-    virtual bool is_layer_change() const
-    { return false; }
+    virtual bool is_layer_change() const {
+        return false;
+    }
 
-    virtual bool is_focus_change() const
-    { return false; }
+    virtual bool is_focus_change() const {
+        return false;
+    }
 
-    virtual bool is_client_desktop_change() const
-    { return false; }
+    virtual bool is_client_desktop_change() const {
+        return false;
+    }
 
-    virtual bool is_current_desktop_change() const
-    { return false; }
+    virtual bool is_current_desktop_change() const {
+        return false;
+    }
 
-    virtual bool is_screen_change() const
-    { return false; }
+    virtual bool is_screen_change() const {
+        return false;
+    }
 
-    virtual bool is_mode_change() const
-    { return false; }
+    virtual bool is_mode_change() const {
+        return false;
+    }
 
-    virtual bool is_location_change() const
-    { return false; }
+    virtual bool is_location_change() const {
+        return false;
+    }
 
-    virtual bool is_size_change() const
-    { return false; }
+    virtual bool is_size_change() const {
+        return false;
+    }
 
-    virtual bool is_destroy_change() const
-    { return false; }
+    virtual bool is_destroy_change() const {
+        return false;
+    }
 
-    virtual bool is_child_add_change() const
-    { return false; }
+    virtual bool is_child_add_change() const {
+        return false;
+    }
 
-    virtual bool is_child_remove_change() const
-    { return false; }
+    virtual bool is_child_remove_change() const {
+        return false;
+    }
 
-    virtual bool is_unmap_change() const
-    { return false; }
+    virtual bool is_unmap_change() const {
+        return false;
+    }
 
-    virtual bool operator==(const Change &other) const
-    { return false; }
+    virtual bool operator==(const Change &other) const {
+        return false;
+    }
 };
 
-static std::ostream &operator<<(std::ostream &out, const Change &change)
-{
+static std::ostream &operator<<(std::ostream &out, const Change &change) {
     out << "[Change]";
     return out;
 }
 
 /// Indicates a change in the stacking order of a window
-struct ChangeLayer : Change
-{
+struct ChangeLayer : Change {
     ChangeLayer(Window win, Layer new_layer) :
-        window(win), layer(new_layer)
-    {};
+        window(win), layer(new_layer) {
+    };
 
-    bool is_layer_change() const
-    { return true; }
+    bool is_layer_change() const {
+        return true;
+    }
 
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_layer_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_layer_change()) return false;
 
         const ChangeLayer &cast_other = dynamic_cast<const ChangeLayer&>(other);
         return (cast_other.window == window &&
@@ -93,27 +102,24 @@ struct ChangeLayer : Change
     const Layer layer;
 };
 
-static std::ostream &operator<<(std::ostream &out, const ChangeLayer &change)
-{
+static std::ostream &operator<<(std::ostream &out, const ChangeLayer &change) {
     out << "[ChangeLayer Window<" << change.window <<
         "> Layer(" << static_cast<int>(change.layer) << ")]";
     return out;
 }
 
 /// Indicates a change in the input focus
-struct ChangeFocus : Change
-{
+struct ChangeFocus : Change {
     ChangeFocus(Window old_focus, Window new_focus) :
-        prev_focus(old_focus), next_focus(new_focus)
-    {};
+        prev_focus(old_focus), next_focus(new_focus) {
+    };
 
-    bool is_focus_change() const
-    { return true; }
+    bool is_focus_change() const {
+        return true;
+    }
 
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_focus_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_focus_change()) return false;
 
         const ChangeFocus &cast_other = dynamic_cast<const ChangeFocus&>(other);
         return (cast_other.prev_focus == prev_focus &&
@@ -124,27 +130,24 @@ struct ChangeFocus : Change
     const Window next_focus;
 };
 
-static std::ostream &operator<<(std::ostream &out, const ChangeFocus &change)
-{
+static std::ostream &operator<<(std::ostream &out, const ChangeFocus &change) {
     out << "[ChangeFocus Window<" << change.prev_focus << "> ==> Window<"
         << change.next_focus << ">]";
     return out;
 }
 
 /// Indicates a change in the desktop of a client
-struct ChangeClientDesktop : Change
-{
-    ChangeClientDesktop(Window win, Desktop *old_desktop, Desktop *new_desktop) :
-        window(win), prev_desktop(old_desktop), next_desktop(new_desktop)
-    {};
+struct ChangeClientDesktop : Change {
+    ChangeClientDesktop(Window win, Desktop * old_desktop, Desktop * new_desktop) :
+        window(win), prev_desktop(old_desktop), next_desktop(new_desktop) {
+    };
 
-    bool is_client_desktop_change() const
-    { return true; }
+    bool is_client_desktop_change() const {
+        return true;
+    }
 
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_client_desktop_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_client_desktop_change()) return false;
 
         const ChangeClientDesktop &cast_other = dynamic_cast<const ChangeClientDesktop&>(other);
 
@@ -159,12 +162,10 @@ struct ChangeClientDesktop : Change
         // possibility of either being NULL without them both being NULL is
         // handled here.
         if ((cast_other.prev_desktop == 0 && prev_desktop != 0) ||
-                (cast_other.prev_desktop != 0 && prev_desktop == 0))
-            return false;
+            (cast_other.prev_desktop != 0 && prev_desktop == 0)) return false;
 
         if ((cast_other.next_desktop == 0 && next_desktop != 0) ||
-                (cast_other.next_desktop != 0 && next_desktop == 0))
-            return false;
+            (cast_other.next_desktop != 0 && next_desktop == 0)) return false;
 
         return (cast_other.window == window &&
                 (cast_other.prev_desktop == prev_desktop ||
@@ -178,38 +179,33 @@ struct ChangeClientDesktop : Change
     Desktop * const next_desktop;
 };
 
-static std::ostream &operator<<(std::ostream &out, const ChangeClientDesktop &change)
-{
+static std::ostream &operator<<(std::ostream &out, const ChangeClientDesktop &change) {
     out << "[ChangeClientDesktop Window<" << change.window << "> Desktop("
         << *change.prev_desktop << "-->" << *change.next_desktop <<  ")]";
     return out;
 }
 
 /// Indicates a change in the currently visible desktop
-struct ChangeCurrentDesktop : Change
-{
+struct ChangeCurrentDesktop : Change {
     ChangeCurrentDesktop(Desktop * const old_desktop, Desktop * const new_desktop) :
-        prev_desktop(old_desktop), next_desktop(new_desktop)
-    {};
+        prev_desktop(old_desktop), next_desktop(new_desktop) {
+    };
 
-    bool is_current_desktop_change() const
-    { return true; }
+    bool is_current_desktop_change() const {
+        return true;
+    }
 
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_current_desktop_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_current_desktop_change()) return false;
 
         const ChangeCurrentDesktop &cast_other =
             dynamic_cast<const ChangeCurrentDesktop&>(other);
 
         if ((cast_other.prev_desktop == 0 && prev_desktop != 0) ||
-                (cast_other.prev_desktop != 0 && prev_desktop == 0))
-            return false;
+            (cast_other.prev_desktop != 0 && prev_desktop == 0)) return false;
 
         if ((cast_other.next_desktop == 0 && next_desktop != 0) ||
-                (cast_other.next_desktop != 0 && next_desktop == 0))
-            return false;
+            (cast_other.next_desktop != 0 && next_desktop == 0)) return false;
 
         return ((cast_other.prev_desktop == prev_desktop ||
                  *cast_other.prev_desktop == *prev_desktop) &&
@@ -221,28 +217,24 @@ struct ChangeCurrentDesktop : Change
     Desktop * const next_desktop;
 };
 
-static std::ostream &operator<<(std::ostream &out, const ChangeCurrentDesktop &change)
-{
+static std::ostream &operator<<(std::ostream &out, const ChangeCurrentDesktop &change) {
     out << "[ChangeCurrentDesktop Desktop(" << *change.prev_desktop << "-->" <<
         *change.next_desktop << ")]";
     return out;
 }
 
 /// Indicates a change in the client's monitor
-struct ChangeScreen : Change
-{
+struct ChangeScreen : Change {
     ChangeScreen(Window win, const Box &_bounds) :
-        window(win), bounds(_bounds)
-    {};
+        window(win), bounds(_bounds) {
+    };
 
-    bool is_screen_change() const
-    { return true; }
+    bool is_screen_change() const {
+        return true;
+    }
 
-
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_screen_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_screen_change()) return false;
 
         const ChangeScreen &cast_other =
             dynamic_cast<const ChangeScreen&>(other);
@@ -254,26 +246,23 @@ struct ChangeScreen : Change
     const Box &bounds;
 };
 
-static std::ostream &operator<<(std::ostream &out, const ChangeScreen &change)
-{
+static std::ostream &operator<<(std::ostream &out, const ChangeScreen &change) {
     out << "[ChangeScreen] Window" << change.window << ") " << change.bounds << "\n";
     return out;
 }
 
 /// Indicates a change in the client's position/scale mode
-struct ChangeCPSMode : Change
-{
+struct ChangeCPSMode : Change {
     ChangeCPSMode(Window win, ClientPosScale _mode) :
-        window(win), mode(_mode)
-    {};
+        window(win), mode(_mode) {
+    };
 
-    bool is_mode_change() const
-    { return true; }
+    bool is_mode_change() const {
+        return true;
+    }
 
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_mode_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_mode_change()) return false;
 
         const ChangeCPSMode &cast_other =
             dynamic_cast<const ChangeCPSMode&>(other);
@@ -286,19 +275,17 @@ struct ChangeCPSMode : Change
 };
 
 /// Indicates a change in the location of a window
-struct ChangeLocation : Change
-{
+struct ChangeLocation : Change {
     ChangeLocation(Window win, Dimension _x, Dimension _y) :
-        window(win), x(_x), y(_y)
-    {};
+        window(win), x(_x), y(_y) {
+    };
 
-    bool is_location_change() const
-    { return true; }
+    bool is_location_change() const {
+        return true;
+    }
 
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_location_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_location_change()) return false;
 
         const ChangeLocation &cast_other = dynamic_cast<const ChangeLocation&>(other);
         return (cast_other.window == window &&
@@ -311,27 +298,24 @@ struct ChangeLocation : Change
     const Dimension y;
 };
 
-static std::ostream &operator<<(std::ostream &out, const ChangeLocation &change)
-{
+static std::ostream &operator<<(std::ostream &out, const ChangeLocation &change) {
     out << "[ChangeLocation Window<" << change.window
         << "> Location(" << change.x << "," << change.y << ")]";
     return out;
 }
 
 /// Indicates a change in the size of a window
-struct ChangeSize : Change
-{
+struct ChangeSize : Change {
     ChangeSize(Window win, Dimension _w, Dimension _h) :
-        window(win), w(_w), h(_h)
-    {};
+        window(win), w(_w), h(_h) {
+    };
 
-    bool is_size_change() const
-    { return true; }
+    bool is_size_change() const {
+        return true;
+    }
 
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_size_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_size_change()) return false;
 
         const ChangeSize &cast_other = dynamic_cast<const ChangeSize&>(other);
         return (cast_other.window == window &&
@@ -344,27 +328,24 @@ struct ChangeSize : Change
     const Dimension h;
 };
 
-static std::ostream &operator<<(std::ostream &out, const ChangeSize &change)
-{
+static std::ostream &operator<<(std::ostream &out, const ChangeSize &change) {
     out << "[ChangeSize Window<" << change.window
         << "> Size(" << change.w << "," << change.h << ")]";
     return out;
 }
 
 /// Indicates that a client has been removed from the model
-struct DestroyChange : Change
-{
-    DestroyChange(Window win, Desktop *old_desktop, Layer old_layer) :
-        window(win), desktop(old_desktop), layer(old_layer)
-    {};
+struct DestroyChange : Change {
+    DestroyChange(Window win, Desktop * old_desktop, Layer old_layer) :
+        window(win), desktop(old_desktop), layer(old_layer) {
+    };
 
-    bool is_destroy_change() const
-    { return true; }
+    bool is_destroy_change() const {
+        return true;
+    }
 
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_destroy_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_destroy_change()) return false;
 
         const DestroyChange &cast_other =
             dynamic_cast<const DestroyChange&>(other);
@@ -379,8 +360,7 @@ struct DestroyChange : Change
     const Layer layer;
 };
 
-static std::ostream &operator<<(std::ostream &out, const DestroyChange &change)
-{
+static std::ostream &operator<<(std::ostream &out, const DestroyChange &change) {
     out << "[DestroyChange Window<" << change.window << ">]";
     return out;
 }
@@ -390,18 +370,16 @@ static std::ostream &operator<<(std::ostream &out, const DestroyChange &change)
  * because it is no longer valid (this is a kludge to handle unmapped
  * windows, without destroying their state inside SmallWM)
  */
-struct UnmapChange : Change
-{
-    UnmapChange(Window win) : window(win)
-    {};
+struct UnmapChange : Change {
+    UnmapChange(Window win) : window(win) {
+    };
 
-    bool is_unmap_change() const
-    { return true; }
+    bool is_unmap_change() const {
+        return true;
+    }
 
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_unmap_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_unmap_change()) return false;
 
         const UnmapChange &cast_other =
             dynamic_cast<const UnmapChange&>(other);
@@ -411,29 +389,26 @@ struct UnmapChange : Change
     const Window window;
 };
 
-static std::ostream &operator<<(std::ostream &out, const UnmapChange &change)
-{
+static std::ostream &operator<<(std::ostream &out, const UnmapChange &change) {
     out << "[UnmapChange Window<" << change.window << ">]";
     return out;
 }
 
 /// Indicates that a child has been added to the model
-struct ChildAddChange : Change
-{
-ChildAddChange(Window client_, Window child_) :
-    client(client_), child(child_)
-    {};
+struct ChildAddChange : Change {
+    ChildAddChange(Window client_, Window child_) :
+        client(client_), child(child_) {
+    };
 
-    bool is_child_add_change() const
-    { return true; }
+    bool is_child_add_change() const {
+        return true;
+    }
 
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_child_add_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_child_add_change()) return false;
 
         const ChildAddChange &cast_other =
-        dynamic_cast<const ChildAddChange&>(other);
+            dynamic_cast<const ChildAddChange&>(other);
         return (cast_other.client == client &&
                 cast_other.child == child);
     }
@@ -442,30 +417,27 @@ ChildAddChange(Window client_, Window child_) :
     const Window child;
 };
 
-static std::ostream &operator<<(std::ostream &out, const ChildAddChange &change)
-{
+static std::ostream &operator<<(std::ostream &out, const ChildAddChange &change) {
     out << "[ChildAddChange Client<" << change.client << "> Child<" <<
         change.child << ">]";
     return out;
 }
 
 /// Indicates that a child has been removed from the model
-struct ChildRemoveChange : Change
-{
-ChildRemoveChange(Window client_, Window child_) :
-    client(client_), child(child_)
-    {};
+struct ChildRemoveChange : Change {
+    ChildRemoveChange(Window client_, Window child_) :
+        client(client_), child(child_) {
+    };
 
-    bool is_child_remove_change() const
-    { return true; }
+    bool is_child_remove_change() const {
+        return true;
+    }
 
-    virtual bool operator==(const Change &other) const
-    {
-        if (!other.is_child_remove_change())
-            return false;
+    virtual bool operator==(const Change &other) const {
+        if (!other.is_child_remove_change()) return false;
 
         const ChildRemoveChange &cast_other =
-        dynamic_cast<const ChildRemoveChange&>(other);
+            dynamic_cast<const ChildRemoveChange&>(other);
         return (cast_other.client == client &&
                 cast_other.child == child);
     }
@@ -474,8 +446,7 @@ ChildRemoveChange(Window client_, Window child_) :
     const Window child;
 };
 
-static std::ostream &operator<<(std::ostream &out, const ChildRemoveChange &change)
-{
+static std::ostream &operator<<(std::ostream &out, const ChildRemoveChange &change) {
     out << "[ChildRemoveChange Client<" << change.client << "> Child<" <<
         change.child << ">]";
     return out;
@@ -488,17 +459,17 @@ static std::ostream &operator<<(std::ostream &out, const ChildRemoveChange &chan
 class ChangeStream
 {
 public:
-    typedef const Change* change_ptr;
-    typedef std::vector<change_ptr>::iterator change_iter;
+typedef const Change *                      change_ptr;
+typedef std::vector<change_ptr>::iterator   change_iter;
 
-    bool has_more();
-    change_ptr get_next();
+bool has_more();
+change_ptr get_next();
 
-    void push(change_ptr);
-    void flush();
+void push(change_ptr);
+void flush();
 
 private:
-    std::queue<change_ptr> m_changes;
+std::queue<change_ptr> m_changes;
 };
 
-#endif
+#endif // ifndef __SMALLWM_MODEL_CHANGE__

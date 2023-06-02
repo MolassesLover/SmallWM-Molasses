@@ -1,12 +1,11 @@
 /** @file */
-#include "logging/logging.h"
+#include "logging.h"
 
 /**
  * Does special processing for Log::endl.
  * @param manipulator This should only ever by Log::endl.
  */
-Log &Log::operator<<(LogManipulator manipulator)
-{
+Log & Log::operator<<(LogManipulator manipulator) {
     return manipulator(*this);
 }
 
@@ -15,8 +14,7 @@ Log &Log::operator<<(LogManipulator manipulator)
  * message.
  * @param stream The stream to operate upon.
  */
-Log &Log::endl(Log &stream)
-{
+Log &Log::endl(Log &stream) {
     stream.flush();
     return stream;
 };

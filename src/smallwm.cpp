@@ -23,8 +23,7 @@ bool should_execute_dump = false;
 /**
  * Triggers a model state dump after the current batch of events has been processed.
  */
-void enable_dump(int signal)
-{
+void enable_dump(int signal) {
     should_execute_dump = true;
 }
 
@@ -33,9 +32,9 @@ void enable_dump(int signal)
  * @param display The display the error occurred on
  * @param event The error event that happened
  */
-int x_error_handler(Display *display, XErrorEvent *event)
-{
+int x_error_handler(Display *display, XErrorEvent *event) {
     char err_desc[500];
+
     XGetErrorText(display, event->error_code, err_desc, 500);
 
     std::cerr << "X Error: \n"
@@ -48,8 +47,7 @@ int x_error_handler(Display *display, XErrorEvent *event)
     return 0;
 }
 
-int main()
-{
+int main() {
     // Make sure that child processes don't generate zombies. This is an
     // alternative to the wait() reaping loop under POSIX 2001
     signal(SIGCHLD, SIG_IGN);
@@ -60,24 +58,22 @@ int main()
     WMConfig config;
     config.load();
 
-    Log* logger;
-    if (config.log_file == std::string("syslog"))
-    {
+    Log *logger;
+
+    if (config.log_file == std::string("syslog")) {
         SysLog *sys_logger = new SysLog();
         sys_logger->set_identity("SmallWM");
         sys_logger->set_facility(LOG_USER);
         sys_logger->set_log_mask(LOG_UPTO(config.log_mask));
         sys_logger->start();
         logger = sys_logger;
-    }
-    else
-    {
+    } else {
         logger = new FileLog(config.log_file, config.log_mask);
     }
 
     Display *display = XOpenDisplay(NULL);
-    if (!display)
-    {
+
+    if (!display) {
         logger->log(LOG_ERR) <<
             "Could not open X display - terminating" << Log::endl;
         logger->stop();
@@ -110,12 +106,9 @@ int main()
 
     for (std::vector<Window>::iterator win_iter = existing_windows.begin();
          win_iter != existing_windows.end();
-         win_iter++)
-    {
-        if (*win_iter != default_root)
-            x_events.add_window(*win_iter);
+         win_iter++) {
+        if (*win_iter != default_root) x_events.add_window(*win_iter);
     }
-
 
     ClientModelEvents client_events(config, *logger, changes,
                                     xdata, clients, xmodel);
@@ -124,31 +117,26 @@ int main()
     // the first set of windows
     client_events.handle_queued_changes();
 
-    while (x_events.step())
-    {
-        if (should_execute_dump)
-        {
+    while (x_events.step()) {
+        if (should_execute_dump) {
             should_execute_dump = false;
 
             logger->log(LOG_NOTICE) <<
-                "Executing dump to target file '" << config.dump_file << 
+                "Executing dump to target file '" << config.dump_file <<
                 "'" << Log::endl;
 
             std::fstream dump_file(config.dump_file.c_str(),
                                    std::fstream::out | std::fstream::app);
 
-            if (dump_file)
-            {
+            if (dump_file) {
                 dump_file << "#BEGIN DUMP\n";
                 crt_manager.dump(dump_file);
                 clients.dump(dump_file);
                 dump_file << "#END DUMP\n";
                 dump_file.close();
-            }
-            else
-            {
+            } else {
                 logger->log(LOG_ERR) <<
-                    "Could not open dump file '" << config.dump_file << 
+                    "Could not open dump file '" << config.dump_file <<
                     "' for writing" << Log::endl;
             }
         }

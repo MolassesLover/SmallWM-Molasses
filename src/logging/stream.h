@@ -2,7 +2,7 @@
 #ifndef __SMALLWM_LOGGING_SYSLOG__
 #define __SMALLWM_LOGGING_SYSLOG__
 
-#include "logging/logging.h"
+#include "logging.h"
 
 /**
  * A Log which writes to a C++ ostream.
@@ -10,22 +10,22 @@
 class StreamLog : public Log
 {
 public:
-    StreamLog(std::ostream &stream) :
-        m_stream(stream), m_closed(false)
-    {}
+StreamLog(std::ostream &stream) :
+    m_stream(stream), m_closed(false) {
+}
 
-    void stop();
+void stop();
 
-    Log &log(int);
-    void write(std::string&);
-    void flush();
+Log &log(int);
+void write(std::string&);
+void flush();
 
 private:
-    // The stream to write log messages to
-    std::ostream &m_stream;
+// The stream to write log messages to
+std::ostream &m_stream;
 
-    // Whether or not the log is closed for future writes
-    bool m_closed;
+// Whether or not the log is closed for future writes
+bool m_closed;
 };
 
-#endif
+#endif // ifndef __SMALLWM_LOGGING_SYSLOG__

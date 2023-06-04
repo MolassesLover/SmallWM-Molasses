@@ -43,10 +43,11 @@ typedef UniqueMultimap<Desktop *, Window>::member_iter client_iter;
 /**
  * Initializes all of the categories in the maps
  */
-ClientModel(ChangeStream &     changes,
-            CrtManager &       crt_manager,
-            unsigned long long max_desktops,
-            Dimension          border_width) :
+#ifdef __BORDERS__
+    ClientModel(ChangeStream &     changes,
+                CrtManager &       crt_manager,
+                unsigned long long max_desktops,
+                Dimension          border_width) :
     m_crt_manager(crt_manager),
     m_changes(changes),
     m_max_desktops(max_desktops),
@@ -61,6 +62,24 @@ ClientModel(ChangeStream &     changes,
     m_desktops.add_category(ICON_DESKTOP);
     m_desktops.add_category(MOVING_DESKTOP);
     m_desktops.add_category(RESIZING_DESKTOP);
+#else
+    ClientModel(ChangeStream &     changes,
+                CrtManager &       crt_manager,
+                unsigned long long max_desktops) :
+    m_crt_manager(crt_manager),
+    m_changes(changes),
+    m_max_desktops(max_desktops),
+    m_focused(None),
+    // Initialize all the desktops
+    ALL_DESKTOPS(new AllDesktops()),
+    ICON_DESKTOP(new IconDesktop()),
+    MOVING_DESKTOP(new MovingDesktop()),
+    RESIZING_DESKTOP(new ResizingDesktop()) {
+    m_desktops.add_category(ALL_DESKTOPS);
+    m_desktops.add_category(ICON_DESKTOP);
+    m_desktops.add_category(MOVING_DESKTOP);
+    m_desktops.add_category(RESIZING_DESKTOP);
+#endif
 
     FocusCycle &all_cycle = dynamic_cast<AllDesktops *>(ALL_DESKTOPS)->focus_cycle;
 
@@ -178,7 +197,9 @@ ChangeStream &m_changes;
 unsigned long long m_max_desktops;
 
 /// The size of window borders
+#ifdef __BORDERS__
 Dimension m_border_width;
+#endif
 
 /// A mapping between clients and their desktops
 UniqueMultimap<Desktop *, Window,

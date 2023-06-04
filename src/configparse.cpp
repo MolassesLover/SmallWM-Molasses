@@ -23,7 +23,9 @@ void WMConfig::reset() {
     num_desktops = 5;
     icon_width = 75;
     icon_height = 20;
+    #ifdef __BORDERS__
     border_width = 4;
+    #endif
     show_icons = true;
     log_mask = LOG_UPTO(LOG_WARNING);
     hotkey = HK_MOUSE;
@@ -95,9 +97,11 @@ int WMConfig::config_parser(void *user, const char *c_section,
         } else if (name == std::string("icon-height")) {
             Dimension old_value = self->icon_height;
             self->icon_height = try_parse_ulong_nonzero(value.c_str(), old_value);
+        #ifdef __BORDERS__
         } else if (name == std::string("border-width")) {
             Dimension old_value = self->border_width;
             self->border_width = try_parse_ulong_nonzero(value.c_str(), old_value);
+        #endif
         } else if (name == std::string("icon-icons")) {
             bool old_value = self->show_icons;
             self->show_icons =

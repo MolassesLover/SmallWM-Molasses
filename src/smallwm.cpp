@@ -96,7 +96,11 @@ int main() {
     crt_manager.rebuild_graph(screens);
 
     ChangeStream changes;
+    #ifdef __BORDERS__
     ClientModel clients(changes, crt_manager, config.num_desktops, config.border_width);
+    #else
+    ClientModel clients(changes, crt_manager, config.num_desktops);
+    #endif
 
     std::vector<Window> existing_windows;
     xdata.get_windows(existing_windows);

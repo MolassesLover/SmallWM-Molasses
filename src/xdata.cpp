@@ -200,6 +200,7 @@ XGC * XData::create_gc(Window window) {
  * @return The ID of the new window.
  */
 Window XData::create_window(bool ignore) {
+    #ifdef __BORDERS__
     Window win = XCreateSimpleWindow(
         m_display, m_root,
         -1, -1, // Location
@@ -207,6 +208,15 @@ Window XData::create_window(bool ignore) {
         1, // Border thickness
         decode_monocolor(X_BLACK),
         decode_monocolor(X_WHITE));
+    #else
+    Window win = XCreateSimpleWindow(
+        m_display, m_root,
+        -1, -1, // Location
+        1, 1, // Size
+        0, // Border thickness
+        decode_monocolor(X_BLACK),
+        decode_monocolor(X_WHITE));
+    #endif
 
     // Setting the `override_redirect` flag is what SmallWM uses to check for
     // windows it should ignore
@@ -542,20 +552,24 @@ bool XData::is_mapped(Window window) {
  * @param window The window whose border to set.
  * @param color The border color.
  */
-void XData::set_border_color(Window window, MonoColor color) {
-    XSetWindowBorder(m_display, window, decode_monocolor(color));
-}
+#ifdef __BORDERS__
+    void XData::set_border_color(Window window, MonoColor color) {
+        XSetWindowBorder(m_display, window, decode_monocolor(color));
+    }
+#endif
 
 /**
  * Sets the width of the border of a window.
  * @param window The window whose border to change.
  * @param size The size of the window's border.
  */
+#ifdef __BORDERS__
 void XData::set_border_width(Window window, Dimension size) {
     enable_substructure_events();
     XSetWindowBorderWidth(m_display, window, size);
     disable_substructure_events();
 }
+#endif
 
 /**
  * Moves a window from its current location to the given location.
@@ -784,7 +798,9 @@ void XData::forward_configure_request(XEvent &event, unsigned int allowed_flags)
     changes.y = event.xconfigurerequest.y;
     changes.width = event.xconfigurerequest.width;
     changes.height = event.xconfigurerequest.height;
+    #ifdef __BORDERS__
     changes.border_width = event.xconfigurerequest.border_width;
+    #endif
     changes.sibling = event.xconfigurerequest.above;
     changes.stack_mode = event.xconfigurerequest.detail;
 

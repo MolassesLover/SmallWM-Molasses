@@ -651,12 +651,16 @@ void XEvents::add_window(Window window) {
 
         if (m_clients.is_client(parent)) {
             m_clients.add_child(parent, window);
+            #ifdef __BORDERS__
             m_xdata.set_border_width(window, m_config.border_width);
+            #endif
             return;
         }
     }
 
+    #ifdef __BORDERS__
     m_xdata.set_border_width(window, m_config.border_width);
+    #endif
 
     // This is a new, manageable client - register it with the client database.
     // This requires we know 3 things:

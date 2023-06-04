@@ -175,7 +175,9 @@ Dimension icon_width,
           icon_height;
 
 /// The width of the window border.
-Dimension border_width;
+#ifdef __BORDERS__
+    Dimension border_width;
+#endif
 
 /// Handles all the configured class actions.
 std::map<std::string, ClassActions> classactions;

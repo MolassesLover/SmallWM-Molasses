@@ -5,9 +5,10 @@
 This is a free and open-source window manager forked from 
 [Adam Marchetti](https://github.com/adamnew123456)'s
 '[SmallWM](https://github.com/adamnew123456/SmallWM)' project.
-It most notably uses CMake instead of Doxygen. Other than that the changes are
-very minimal. This isn't a serious project, just something I personally use for
-my desktop [rice](https://github.com/MolassesLover/dots).
+A few small changes were made for my own use, most notably replacing Doxygen 
+with CMake. Other than that the changes are very minimal. This isn't a serious 
+project, just something I personally use for my desktop 
+[rice](https://github.com/MolassesLover/dots).
 
 ## License
 
@@ -16,3 +17,6 @@ This fork of SmallWM is licensed under third version of the
 as opposed to the 
 [2-Clause BSD License](https://opensource.org/license/bsd-2-clause), which is
 what the upstream version of 'SmallWM' uses.
+
+Please, view the [LEGAL.md](docs/LEGAL.md) file for third-party licenses, along
+with a copy of the original license.

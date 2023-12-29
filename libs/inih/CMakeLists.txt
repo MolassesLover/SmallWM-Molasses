@@ -9,4 +9,4 @@ set(SOURCE_FILES
     src/ini.c
 )
 
-add_library(inih ${HEADER_FILES} ${SOURCE_FILES})
+add_library(inih STATIC ${HEADER_FILES} ${SOURCE_FILES})

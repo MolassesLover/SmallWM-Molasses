@@ -47,3 +47,6 @@ add_subdirectory(libs/inih)
 add_executable(smallwm ${HEADER_FILES} ${SOURCE_FILES})
 
 target_link_libraries(smallwm inih X11::Xrandr)
+
+install(TARGETS smallwm DESTINATION bin)
+install(FILES ${HEADER_FILES} DESTINATION include/smallwm-molasses)

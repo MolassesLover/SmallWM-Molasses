@@ -40,7 +40,7 @@ repository of 'SmallWM,' [here](https://github.com/adamnew123456/SmallWM/blob/c2
 -------------------------------------------------------------------------------
 
 ### inih
-The 'inih" library is included in the [`libs/inih`](libs/inih) directory. The
+The 'inih" library is included in the [`libs/inih`](../libs/inih) directory. The
 project is licensed by Ben Hoyt under the terms of the [3-Clause BSD License](https://opensource.org/license/bsd-3-clause/).
 
 ```

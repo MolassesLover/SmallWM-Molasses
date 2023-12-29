@@ -7,7 +7,7 @@ This project is based om Adam Marchetti's 'SmallWM' project, licensed under
 the terms of the [2-Clause BSD License](https://opensource.org/license/bsd-2-clause/), 
 as is described below.
 
->>> ```
+```
 Copyright (c) 2013, Adam Marchetti <adamnew123456@gmail.com>
 All rights reserved.
 
@@ -43,7 +43,7 @@ repository of 'SmallWM,' [here](https://github.com/adamnew123456/SmallWM/blob/c2
 The 'inih" library is included in the [`libs/inih`](libs/inih) directory. The
 project is licensed by Ben Hoyt under the terms of the [3-Clause BSD License](https://opensource.org/license/bsd-3-clause/).
 
->>> ```
+```
 Copyright (c) 2009, Ben Hoyt
 All rights reserved.
 

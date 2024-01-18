@@ -43,7 +43,7 @@ typedef UniqueMultimap<Desktop *, Window>::member_iter client_iter;
 /**
  * Initializes all of the categories in the maps
  */
-#ifdef __BORDERS__
+#ifdef WITH_BORDERS
     ClientModel(ChangeStream &     changes,
                 CrtManager &       crt_manager,
                 unsigned long long max_desktops,
@@ -197,7 +197,7 @@ ChangeStream &m_changes;
 unsigned long long m_max_desktops;
 
 /// The size of window borders
-#ifdef __BORDERS__
+#ifdef WITH_BORDERS
 Dimension m_border_width;
 #endif
 

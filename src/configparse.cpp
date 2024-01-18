@@ -23,7 +23,7 @@ void WMConfig::reset() {
     num_desktops = 5;
     icon_width = 75;
     icon_height = 20;
-    #ifdef __BORDERS__
+    #ifdef WITH_BORDERS
     border_width = 4;
     #endif
     show_icons = true;
@@ -97,7 +97,7 @@ int WMConfig::config_parser(void *user, const char *c_section,
         } else if (name == std::string("icon-height")) {
             Dimension old_value = self->icon_height;
             self->icon_height = try_parse_ulong_nonzero(value.c_str(), old_value);
-        #ifdef __BORDERS__
+        #ifdef WITH_BORDERS
         } else if (name == std::string("border-width")) {
             Dimension old_value = self->border_width;
             self->border_width = try_parse_ulong_nonzero(value.c_str(), old_value);

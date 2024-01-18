@@ -651,14 +651,14 @@ void XEvents::add_window(Window window) {
 
         if (m_clients.is_client(parent)) {
             m_clients.add_child(parent, window);
-            #ifdef __BORDERS__
+            #ifdef WITH_BORDERS
             m_xdata.set_border_width(window, m_config.border_width);
             #endif
             return;
         }
     }
 
-    #ifdef __BORDERS__
+    #ifdef WITH_BORDERS
     m_xdata.set_border_width(window, m_config.border_width);
     #endif
 

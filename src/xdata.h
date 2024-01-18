@@ -104,9 +104,10 @@ void get_attributes(Window, XWindowAttributes&);
 void set_attributes(Window, XSetWindowAttributes&,
                     unsigned long);
 bool is_mapped(Window);
-#ifdef __BORDERS__
-    void set_border_color(Window, MonoColor);
-    void set_border_width(Window, Dimension);
+
+#ifdef WITH_BORDERS
+void set_border_color(Window, MonoColor);
+void set_border_width(Window, Dimension);
 #endif
 
 void move_window(Window, Dimension, Dimension);

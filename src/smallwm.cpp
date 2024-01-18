@@ -96,7 +96,7 @@ int main() {
     crt_manager.rebuild_graph(screens);
 
     ChangeStream changes;
-    #ifdef __BORDERS__
+    #ifdef WITH_BORDERS
     ClientModel clients(changes, crt_manager, config.num_desktops, config.border_width);
     #else
     ClientModel clients(changes, crt_manager, config.num_desktops);

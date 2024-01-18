@@ -3,6 +3,8 @@ project(SmallWM)
 
 find_package(X11 REQUIRED)
 
+add_compile_definitions(WITH_BORDERS)
+
 SET(HEADER_FILES
     src/actions.h
     src/clientmodel-events.h

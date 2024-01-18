@@ -200,7 +200,7 @@ XGC * XData::create_gc(Window window) {
  * @return The ID of the new window.
  */
 Window XData::create_window(bool ignore) {
-    #ifdef __BORDERS__
+    #ifdef WITH_BORDERS
     Window win = XCreateSimpleWindow(
         m_display, m_root,
         -1, -1, // Location
@@ -547,28 +547,28 @@ bool XData::is_mapped(Window window) {
     return attrs.map_state != IsUnmapped;
 }
 
+#ifdef WITH_BORDERS
+
 /**
  * Sets the color of the border of a window.
  * @param window The window whose border to set.
  * @param color The border color.
  */
-#ifdef __BORDERS__
-    void XData::set_border_color(Window window, MonoColor color) {
-        XSetWindowBorder(m_display, window, decode_monocolor(color));
-    }
-#endif
+void XData::set_border_color(Window window, MonoColor color) {
+XSetWindowBorder(m_display, window, decode_monocolor(color));
+}
 
 /**
  * Sets the width of the border of a window.
  * @param window The window whose border to change.
  * @param size The size of the window's border.
  */
-#ifdef __BORDERS__
 void XData::set_border_width(Window window, Dimension size) {
     enable_substructure_events();
     XSetWindowBorderWidth(m_display, window, size);
     disable_substructure_events();
 }
+
 #endif
 
 /**
@@ -798,7 +798,7 @@ void XData::forward_configure_request(XEvent &event, unsigned int allowed_flags)
     changes.y = event.xconfigurerequest.y;
     changes.width = event.xconfigurerequest.width;
     changes.height = event.xconfigurerequest.height;
-    #ifdef __BORDERS__
+    #ifdef WITH_BORDERS
     changes.border_width = event.xconfigurerequest.border_width;
     #endif
     changes.sibling = event.xconfigurerequest.above;

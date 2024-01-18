@@ -422,7 +422,7 @@ void ClientModel::repack_corner(PackCorner corner) {
               windows_on_this_corner.end(),
               sorter);
 
-    #ifdef __BORDERS__
+    #ifdef WITH_BORDERS
     Dimension border = m_border_width * 2;
     #endif
 
@@ -433,7 +433,7 @@ void ClientModel::repack_corner(PackCorner corner) {
 
         int real_x, real_y;
 
-        #ifdef __BORDERS__
+        #ifdef WITH_BORDERS
             if (subtract_width_first) real_x = x_coord - (DIM2D_WIDTH(size) + border);
             else real_x = x_coord;
 

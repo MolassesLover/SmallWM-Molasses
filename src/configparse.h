@@ -175,7 +175,7 @@ Dimension icon_width,
           icon_height;
 
 /// The width of the window border.
-#ifdef __BORDERS__
+#ifdef WITH_BORDERS
     Dimension border_width;
 #endif
 

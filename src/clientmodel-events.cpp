@@ -1,4 +1,5 @@
 #include "clientmodel-events.h"
+#include "xdata.h"
 
 /**
  * Maps all the windows in the given window list.
@@ -96,7 +97,7 @@ void ClientModelEvents::handle_focus_change() {
         m_clients.is_child(unfocused_client)) {
         // Since this window will possibly be focused later, capture the clicks
         // going to it so we know when it needs to be focused again
-        #ifdef __BORDERS__
+        #ifdef WITH_BORDERS
             m_xdata.set_border_color(unfocused_client, X_WHITE);
         #endif
         m_xdata.grab_mouse(unfocused_client);
@@ -108,7 +109,7 @@ void ClientModelEvents::handle_focus_change() {
         // Since this is now focused, let the client process events in by
         // ungrabbing the mouse and setting the keyboard focus
         if (focused_client != None && m_xdata.set_input_focus(focused_client)) {
-            #ifdef __BORDERS__
+            #ifdef WITH_BORDERS
             m_xdata.set_border_color(focused_client, X_BLACK);
             #endif
 
@@ -116,7 +117,7 @@ void ClientModelEvents::handle_focus_change() {
         } else {
             m_clients.cycle_focus_forward();
 
-            #ifdef __BORDERS_
+            #ifdef WITH_BORDERS
             m_xdata.set_border_color(focused_client, X_WHITE);
             #endif
 
@@ -880,7 +881,7 @@ void ClientModelEvents::update_location_size_for_cps(Window client, ClientPosSca
         middle_y = top_y + screen.height / 2;
     }
 
-    #ifdef __BORDERS__
+    #ifdef WITH_BORDERS
     Dimension border = m_config.border_width * 2;
 
     switch (mode) {
@@ -909,7 +910,7 @@ void ClientModelEvents::update_location_size_for_cps(Window client, ClientPosSca
             m_clients.change_size(client, right_x - left_x - border, bottom_y - top_y - border);
             break;
     }
-    #endif // ifdef __BORDERS__
+    #endif // ifdef WITH_BORDERS
 }
 
 /*

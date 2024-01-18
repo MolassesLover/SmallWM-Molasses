@@ -15,7 +15,7 @@
 #include <utility>
 #include <unistd.h>
 
-#include "logging/logging.h"
+#include "logging/logging.hpp"
 
 /// A size of some kind.
 typedef int                               Dimension;

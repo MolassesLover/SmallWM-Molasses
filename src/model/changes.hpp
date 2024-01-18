@@ -7,8 +7,8 @@
 #include <queue>
 #include <vector>
 
-#include "../common.h"
-#include "desktop-type.h"
+#include "../common.hpp"
+#include "desktop-type.hpp"
 
 /**
  * This is the root of a hierarchy which forms the layer between the parts

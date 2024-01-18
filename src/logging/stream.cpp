@@ -1,5 +1,5 @@
 /** @file */
-#include "stream.h"
+#include "stream.hpp"
 
 /**
  * Closes a StreamLog. Note that this doesn't close the underlying output

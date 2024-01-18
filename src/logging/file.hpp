@@ -2,7 +2,7 @@
 #ifndef __SMALLWM_LOGGING_FILE__
 #define __SMALLWM_LOGGING_FILE__
 
-#include "logging.h"
+#include "logging.hpp"
 
 #include <ctime>
 #include <fstream>

@@ -6,24 +6,24 @@ find_package(X11 REQUIRED)
 add_compile_definitions(WITH_BORDERS)
 
 SET(HEADER_FILES
-    src/actions.h
-    src/clientmodel-events.h
-    src/common.h
-    src/configparse.h
-    src/utils.h
-    src/x-events.h
-    src/xdata.h
-    src/logging/file.h
-    src/logging/logging.h
-    src/logging/stream.h
-    src/logging/syslog.h
-    src/model/changes.h
-    src/model/client-model.h
-    src/model/desktop-type.h
-    src/model/focus-cycle.h
-    src/model/screen.h
-    src/model/unique-multimap.h
-    src/model/x-model.h
+    src/actions.hpp
+    src/clientmodel-events.hpp
+    src/common.hpp
+    src/configparse.hpp
+    src/utils.hpp
+    src/x-events.hpp
+    src/xdata.hpp
+    src/logging/file.hpp
+    src/logging/logging.hpp
+    src/logging/stream.hpp
+    src/logging/syslog.hpp
+    src/model/changes.hpp
+    src/model/client-model.hpp
+    src/model/desktop-type.hpp
+    src/model/focus-cycle.hpp
+    src/model/screen.hpp
+    src/model/unique-multimap.hpp
+    src/model/x-model.hpp
 )
 
 set(SOURCE_FILES

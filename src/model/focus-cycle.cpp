@@ -1,4 +1,4 @@
-#include "focus-cycle.h"
+#include "focus-cycle.hpp"
 
 /**
  * Adds a new window to the end of the focus cycle.

@@ -1,5 +1,5 @@
-#include "clientmodel-events.h"
-#include "xdata.h"
+#include "clientmodel-events.hpp"
+#include "xdata.hpp"
 
 /**
  * Maps all the windows in the given window list.
@@ -98,7 +98,7 @@ void ClientModelEvents::handle_focus_change() {
         // Since this window will possibly be focused later, capture the clicks
         // going to it so we know when it needs to be focused again
         #ifdef WITH_BORDERS
-            m_xdata.set_border_color(unfocused_client, X_WHITE);
+        m_xdata.set_border_color(unfocused_client, X_WHITE);
         #endif
         m_xdata.grab_mouse(unfocused_client);
     }

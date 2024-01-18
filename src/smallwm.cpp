@@ -4,19 +4,19 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include "actions.h"
-#include "clientmodel-events.h"
-#include "configparse.h"
-#include "common.h"
-#include "logging/logging.h"
-#include "logging/file.h"
-#include "logging/syslog.h"
-#include "model/changes.h"
-#include "model/client-model.h"
-#include "model/screen.h"
-#include "model/x-model.h"
-#include "xdata.h"
-#include "x-events.h"
+#include "actions.hpp"
+#include "clientmodel-events.hpp"
+#include "configparse.hpp"
+#include "common.hpp"
+#include "logging/logging.hpp"
+#include "logging/file.hpp"
+#include "logging/syslog.hpp"
+#include "model/changes.hpp"
+#include "model/client-model.hpp"
+#include "model/screen.hpp"
+#include "model/x-model.hpp"
+#include "xdata.hpp"
+#include "x-events.hpp"
 
 bool should_execute_dump = false;
 

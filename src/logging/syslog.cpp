@@ -1,5 +1,5 @@
 /** @file */
-#include "syslog.h"
+#include "syslog.hpp"
 
 /**
  * Adds an option to the options flag given to syslog.

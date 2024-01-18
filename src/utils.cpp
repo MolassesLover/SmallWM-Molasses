@@ -1,5 +1,5 @@
 /** @file */
-#include "utils.h"
+#include "utils.hpp"
 
 /**
  * Removes characters from a string, irrespective of position.

@@ -1,5 +1,5 @@
 /** @file */
-#include "file.h"
+#include "file.hpp"
 
 /**
  * Stops accepting log messages.

@@ -1,5 +1,5 @@
 /** @file */
-#include "client-model.h"
+#include "client-model.hpp"
 
 /**
  * Returns whether or not a client exists.
@@ -426,6 +426,7 @@ void ClientModel::repack_corner(PackCorner corner) {
     Dimension border = m_border_width * 2;
     #endif
 
+    // To do: Reduce code duplication.
     for (std::vector<Window>::iterator iter = windows_on_this_corner.begin();
          iter != windows_on_this_corner.end();
          iter++) {
@@ -434,14 +435,27 @@ void ClientModel::repack_corner(PackCorner corner) {
         int real_x, real_y;
 
         #ifdef WITH_BORDERS
-            if (subtract_width_first) real_x = x_coord - (DIM2D_WIDTH(size) + border);
-            else real_x = x_coord;
 
-            if (subtract_height_first) real_y = y_coord - (DIM2D_HEIGHT(size) + border);
-            else real_y = y_coord;
+        if (subtract_width_first) real_x = x_coord - (DIM2D_WIDTH(size) + border);
+        else real_x = x_coord;
 
-            change_location(*iter, real_x, real_y);
-            x_coord += x_incr_sign * (DIM2D_WIDTH(size) + border);
+        if (subtract_height_first) real_y = y_coord - (DIM2D_HEIGHT(size) + border);
+        else real_y = y_coord;
+
+        change_location(*iter, real_x, real_y);
+        x_coord += x_incr_sign * (DIM2D_WIDTH(size) + border);
+        #else
+
+        if (subtract_width_first) real_x = x_coord - (DIM2D_WIDTH(size));
+        else real_x = x_coord;
+
+        if (subtract_height_first) real_y = y_coord - (DIM2D_HEIGHT(size));
+        else real_y = y_coord;
+
+        change_location(*iter, real_x, real_y);
+        x_coord += x_incr_sign * (DIM2D_WIDTH(size));
+
+
         #endif
 
         change_location(*iter, real_x, real_y);

@@ -2,7 +2,7 @@
 #ifndef __SMALLWM_SCREEN_MODEL__
 #define __SMALLWM_SCREEN_MODEL__
 
-#include "../common.h"
+#include "../common.hpp"
 
 #include <ios>
 #include <map>

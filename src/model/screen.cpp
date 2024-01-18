@@ -1,5 +1,5 @@
 /** @file */
-#include "screen.h"
+#include "screen.hpp"
 
 /**
  * Finds out which screen a particular coordinate inhabits.

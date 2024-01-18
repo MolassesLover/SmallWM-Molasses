@@ -5,14 +5,14 @@
 #include <algorithm>
 #include <vector>
 
-#include "model/client-model.h"
-#include "model/focus-cycle.h"
-#include "model/x-model.h"
-#include "configparse.h"
-#include "common.h"
-#include "logging/logging.h"
-#include "utils.h"
-#include "xdata.h"
+#include "model/client-model.hpp"
+#include "model/focus-cycle.hpp"
+#include "model/x-model.hpp"
+#include "configparse.hpp"
+#include "common.hpp"
+#include "logging/logging.hpp"
+#include "utils.hpp"
+#include "xdata.hpp"
 
 /**
  * A dispatcher for handling the different change events raised by the

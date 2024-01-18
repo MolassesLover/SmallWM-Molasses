@@ -1,5 +1,5 @@
 /** @file */
-#include "changes.h"
+#include "changes.hpp"
 
 /**
  * Returns true if there are changes to be processed, or  false otherwise.

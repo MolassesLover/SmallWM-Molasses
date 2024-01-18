@@ -1,4 +1,4 @@
-#include "x-events.h"
+#include "x-events.hpp"
 
 /**
  * Runs a single iteration of the event loop, by capturing an X event and
@@ -194,9 +194,9 @@ void XEvents::handle_keypress() {
             break;
 
 #define LAYER_SET(l) \
-        case LAYER_ ## l: \
-            if (is_client) m_clients.set_layer(client, l); \
-            break;
+            case LAYER_ ## l: \
+                if (is_client) m_clients.set_layer(client, l); \
+                break;
 
             LAYER_SET(1);
             LAYER_SET(2);
@@ -288,7 +288,7 @@ void XEvents::handle_buttonpress() {
              * unnecessary /bin/sh process sticking around, use 'exec' twice.
              */
             std::string shell = std::string("exec ") + m_config.shell;
-            execl("/bin/sh", "/bin/sh", "-c", shell.c_str(), NULL);
+            execl("/bin/.hpp", "/bin/.hpp", "-c", shell.c_str(), NULL);
             exit(1);
         }
     } else if (icon) {

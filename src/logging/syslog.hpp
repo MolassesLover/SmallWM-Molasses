@@ -2,7 +2,7 @@
 #ifndef __SMALLWM_LOGGING_SYSLOG__
 #define __SMALLWM_LOGGING_SYSLOG__
 
-#include "logging.h"
+#include "logging.hpp"
 
 #include <syslog.h>
 

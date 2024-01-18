@@ -2,11 +2,11 @@
 #ifndef __SMALLWM_CLIENT_MODEL__
 #define __SMALLWM_CLIENT_MODEL__
 
-#include "changes.h"
-#include "../common.h"
-#include "desktop-type.h"
-#include "screen.h"
-#include "unique-multimap.h"
+#include "changes.hpp"
+#include "../common.hpp"
+#include "desktop-type.hpp"
+#include "screen.hpp"
+#include "unique-multimap.hpp"
 
 #include <algorithm>
 #include <ios>
@@ -44,10 +44,10 @@ typedef UniqueMultimap<Desktop *, Window>::member_iter client_iter;
  * Initializes all of the categories in the maps
  */
 #ifdef WITH_BORDERS
-    ClientModel(ChangeStream &     changes,
-                CrtManager &       crt_manager,
-                unsigned long long max_desktops,
-                Dimension          border_width) :
+ClientModel(ChangeStream &     changes,
+            CrtManager &       crt_manager,
+            unsigned long long max_desktops,
+            Dimension          border_width) :
     m_crt_manager(crt_manager),
     m_changes(changes),
     m_max_desktops(max_desktops),
@@ -63,9 +63,9 @@ typedef UniqueMultimap<Desktop *, Window>::member_iter client_iter;
     m_desktops.add_category(MOVING_DESKTOP);
     m_desktops.add_category(RESIZING_DESKTOP);
 #else
-    ClientModel(ChangeStream &     changes,
-                CrtManager &       crt_manager,
-                unsigned long long max_desktops) :
+ClientModel(ChangeStream &     changes,
+            CrtManager &       crt_manager,
+            unsigned long long max_desktops) :
     m_crt_manager(crt_manager),
     m_changes(changes),
     m_max_desktops(max_desktops),
@@ -79,7 +79,7 @@ typedef UniqueMultimap<Desktop *, Window>::member_iter client_iter;
     m_desktops.add_category(ICON_DESKTOP);
     m_desktops.add_category(MOVING_DESKTOP);
     m_desktops.add_category(RESIZING_DESKTOP);
-#endif
+#endif // ifdef WITH_BORDERS
 
     FocusCycle &all_cycle = dynamic_cast<AllDesktops *>(ALL_DESKTOPS)->focus_cycle;
 

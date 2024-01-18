@@ -2,6 +2,9 @@
 [![Ko-Fi](https://img.shields.io/badge/donate-kofi-blue?style=for-the-badge&logo=ko-fi&color=e57578&logoColor=FFFFFF&labelColor=262a35)](https://ko-fi.com/molasses)
 [![Patreon](https://img.shields.io/badge/donate-patreon-blue?style=for-the-badge&logo=patreon&color=e57578&logoColor=FFFFFF&labelColor=262a35)](https://www.patreon.com/molasseslover)
 
+> **Warning** This is experimental software for *my own personal* use. there 
+> are [bugs](#Bugs), and there is no guarantee that I will fix them.
+
 This is a free and open-source window manager forked from 
 [Adam Marchetti](https://github.com/adamnew123456)'s
 '[SmallWM](https://github.com/adamnew123456/SmallWM)' project.
@@ -20,3 +23,7 @@ what the upstream version of 'SmallWM' uses.
 
 Please, view the [LEGAL.md](docs/LEGAL.md) file for third-party licenses, along
 with a copy of the original license.
+
+## Bugs
+
+- SmallWM does not maximise windows when borders disabled.

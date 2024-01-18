@@ -7,8 +7,8 @@
 #include <map>
 #include <vector>
 
-#include "common.h"
-#include "logging/logging.h"
+#include "common.hpp"
+#include "logging/logging.hpp"
 
 /**
  * An X graphics context which is used to draw on windows.

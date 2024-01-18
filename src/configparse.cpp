@@ -1,5 +1,5 @@
 /** @file */
-#include "configparse.h"
+#include "configparse.hpp"
 
 /**
  * Loads a configuration file and parses it.
@@ -66,11 +66,11 @@ int WMConfig::config_parser(void *user, const char *c_section,
     if (section == std::string("smallwm")) {
         if (name == std::string("log-level")) {
 #define SYSLOG_MACRO_CHECK(level) \
-    do { \
-        if (value == std::string(#level)) \
-        self->log_mask = LOG_UPTO(LOG_ ## level); \
-    } \
-    while (0);
+        do { \
+            if (value == std::string(#level)) \
+            self->log_mask = LOG_UPTO(LOG_ ## level); \
+        } \
+        while (0);
             SYSLOG_MACRO_CHECK(EMERG);
             SYSLOG_MACRO_CHECK(ALERT);
             SYSLOG_MACRO_CHECK(CRIT);
@@ -91,14 +91,14 @@ int WMConfig::config_parser(void *user, const char *c_section,
         } else if (name == std::string("desktops")) {
             unsigned long long old_value = self->num_desktops;
             self->num_desktops = try_parse_ulong_nonzero(value.c_str(), old_value);
-        } else if (name == std::string("icon-width")) {
+        } else if (name == std::string("icon-wid.hpp")) {
             Dimension old_value = self->icon_width;
             self->icon_width = try_parse_ulong_nonzero(value.c_str(), old_value);
         } else if (name == std::string("icon-height")) {
             Dimension old_value = self->icon_height;
             self->icon_height = try_parse_ulong_nonzero(value.c_str(), old_value);
         #ifdef WITH_BORDERS
-        } else if (name == std::string("border-width")) {
+        } else if (name == std::string("border-wid.hpp")) {
             Dimension old_value = self->border_width;
             self->border_width = try_parse_ulong_nonzero(value.c_str(), old_value);
         #endif

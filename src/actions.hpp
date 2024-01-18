@@ -2,7 +2,7 @@
 #ifndef __SMALLWM_ACTIONS__
 #define __SMALLWM_ACTIONS__
 
-#include "common.h"
+#include "common.hpp"
 
 /// Indicates that an action will stick a window.
 const unsigned int ACT_STICK = 1 << 0,

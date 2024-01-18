@@ -4,8 +4,8 @@
 #include <map>
 #include <vector>
 
-#include "../common.h"
-#include "../xdata.h"
+#include "../common.hpp"
+#include "../xdata.hpp"
 
 /**
  * Stores the data necessary to handle an icon.

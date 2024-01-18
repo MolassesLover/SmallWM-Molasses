@@ -1,5 +1,5 @@
 /** @file */
-#include "x-model.h"
+#include "x-model.hpp"
 
 /**
  * Registers a new icon - note that, at this point, XModel takes

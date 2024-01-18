@@ -1,5 +1,5 @@
 /** @file */
-#include "xdata.h"
+#include "xdata.hpp"
 
 /**
  * Clears the window of the graphics context.
@@ -555,7 +555,7 @@ bool XData::is_mapped(Window window) {
  * @param color The border color.
  */
 void XData::set_border_color(Window window, MonoColor color) {
-XSetWindowBorder(m_display, window, decode_monocolor(color));
+    XSetWindowBorder(m_display, window, decode_monocolor(color));
 }
 
 /**
@@ -851,6 +851,8 @@ unsigned long XData::decode_monocolor(MonoColor color) {
         case X_WHITE:
             return WhitePixel(m_display, m_screen);
     }
+
+    return 0;
 }
 
 /**

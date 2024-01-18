@@ -10,9 +10,9 @@
 #include <vector>
 
 #include "../libs/inih/src/ini.h"
-#include "actions.h"
-#include "common.h"
-#include "utils.h"
+#include "actions.hpp"
+#include "common.hpp"
+#include "utils.hpp"
 
 /**
  * The different default keyboard shortcuts.
@@ -67,39 +67,39 @@ struct KeyboardConfig {
         binding_to_action.clear();
 
         DefaultShortcut shortcuts[] = {
-            { CLIENT_NEXT_DESKTOP, "client-next-desktop", XK_bracketright, false },
-            { CLIENT_PREV_DESKTOP, "client-prev-desktop", XK_bracketleft,  false },
-            { NEXT_DESKTOP,        "next-desktop",        XK_period,       false },
-            { PREV_DESKTOP,        "prev-desktop",        XK_comma,        false },
-            { TOGGLE_STICK,        "toggle-stick",        XK_backslash,    false },
-            { ICONIFY,             "iconify",             XK_h,            false },
-            { MAXIMIZE,            "maximize",            XK_m,            false },
-            { REQUEST_CLOSE,       "request-close",       XK_c,            false },
-            { FORCE_CLOSE,         "force-close",         XK_x,            false },
-            { K_SNAP_TOP,          "snap-top",            XK_Up,           false },
-            { K_SNAP_BOTTOM,       "snap-bottom",         XK_Down,         false },
-            { K_SNAP_LEFT,         "snap-left",           XK_Left,         false },
-            { K_SNAP_RIGHT,        "snap-right",          XK_Right,        false },
-            { SCREEN_TOP,          "screen-top",          XK_Up,           true  },
-            { SCREEN_BOTTOM,       "screen-bottom",       XK_Down,         true  },
-            { SCREEN_LEFT,         "screen-left",         XK_Left,         true  },
-            { SCREEN_RIGHT,        "screen-right",        XK_Right,        true  },
-            { LAYER_ABOVE,         "layer-above",         XK_Page_Up,      false },
-            { LAYER_BELOW,         "layer-below",         XK_Page_Down,    false },
-            { LAYER_TOP,           "layer-top",           XK_Home,         false },
-            { LAYER_BOTTOM,        "layer-bottom",        XK_End,          false },
-            { LAYER_1,             "layer-1",             XK_1,            false },
-            { LAYER_2,             "layer-2",             XK_2,            false },
-            { LAYER_3,             "layer-3",             XK_3,            false },
-            { LAYER_4,             "layer-4",             XK_4,            false },
-            { LAYER_5,             "layer-5",             XK_5,            false },
-            { LAYER_6,             "layer-6",             XK_6,            false },
-            { LAYER_7,             "layer-7",             XK_7,            false },
-            { LAYER_8,             "layer-8",             XK_8,            false },
-            { LAYER_9,             "layer-9",             XK_9,            false },
-            { CYCLE_FOCUS,         "cycle-focus",         XK_Tab,          false },
-            { CYCLE_FOCUS_BACK,    "cycle-focus-back",    XK_Tab,          true  },
-            { EXIT_WM,             "exit",                XK_Escape,       false },
+            { CLIENT_NEXT_DESKTOP, "client-next-desktop", XK_bracketright,          false            },
+            { CLIENT_PREV_DESKTOP, "client-prev-desktop", XK_bracketleft,           false            },
+            { NEXT_DESKTOP,        "next-desktop",        XK_period,                false            },
+            { PREV_DESKTOP,        "prev-desktop",        XK_comma,                 false            },
+            { TOGGLE_STICK,        "toggle-stick",        XK_backslash,             false            },
+            { ICONIFY,             "iconify",             XK_h,                     false            },
+            { MAXIMIZE,            "maximize",            XK_m,                     false            },
+            { REQUEST_CLOSE,       "request-close",       XK_c,                     false            },
+            { FORCE_CLOSE,         "force-close",         XK_x,                     false            },
+            { K_SNAP_TOP,          "snap-top",            XK_Up,                    false            },
+            { K_SNAP_BOTTOM,       "snap-bottom",         XK_Down,                  false            },
+            { K_SNAP_LEFT,         "snap-left",           XK_Left,                  false            },
+            { K_SNAP_RIGHT,        "snap-right",          XK_Right,                 false            },
+            { SCREEN_TOP,          "screen-top",          XK_Up,                    true             },
+            { SCREEN_BOTTOM,       "screen-bottom",       XK_Down,                  true             },
+            { SCREEN_LEFT,         "screen-left",         XK_Left,                  true             },
+            { SCREEN_RIGHT,        "screen-right",        XK_Right,                 true             },
+            { LAYER_ABOVE,         "layer-above",         XK_Page_Up,               false            },
+            { LAYER_BELOW,         "layer-below",         XK_Page_Down,             false            },
+            { LAYER_TOP,           "layer-top",           XK_Home,                  false            },
+            { LAYER_BOTTOM,        "layer-bottom",        XK_End,                   false            },
+            { LAYER_1,             "layer-1",             XK_1,                     false            },
+            { LAYER_2,             "layer-2",             XK_2,                     false            },
+            { LAYER_3,             "layer-3",             XK_3,                     false            },
+            { LAYER_4,             "layer-4",             XK_4,                     false            },
+            { LAYER_5,             "layer-5",             XK_5,                     false            },
+            { LAYER_6,             "layer-6",             XK_6,                     false            },
+            { LAYER_7,             "layer-7",             XK_7,                     false            },
+            { LAYER_8,             "layer-8",             XK_8,                     false            },
+            { LAYER_9,             "layer-9",             XK_9,                     false            },
+            { CYCLE_FOCUS,         "cycle-focus",         XK_Tab,                   false            },
+            { CYCLE_FOCUS_BACK,    "cycle-focus-back",    XK_Tab,                   true             },
+            { EXIT_WM,             "exit",                XK_Escape,                false            },
         };
 
         int num_shortcuts = sizeof(shortcuts) / sizeof(shortcuts[0]);
@@ -176,7 +176,7 @@ Dimension icon_width,
 
 /// The width of the window border.
 #ifdef WITH_BORDERS
-    Dimension border_width;
+Dimension border_width;
 #endif
 
 /// Handles all the configured class actions.

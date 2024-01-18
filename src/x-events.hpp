@@ -4,12 +4,12 @@
 
 #include <algorithm>
 
-#include "model/client-model.h"
-#include "model/x-model.h"
-#include "configparse.h"
-#include "common.h"
-#include "utils.h"
-#include "xdata.h"
+#include "model/client-model.hpp"
+#include "model/x-model.hpp"
+#include "configparse.hpp"
+#include "common.hpp"
+#include "utils.hpp"
+#include "xdata.hpp"
 
 /**
  * A dispatcher for handling the different type of X events.
@@ -35,11 +35,11 @@ XEvents(WMConfig &config, XData &xdata, ClientModel &clients,
         ICONIFY,
         MAXIMIZE,
         REQUEST_CLOSE,       FORCE_CLOSE,
-        K_SNAP_TOP,          K_SNAP_BOTTOM,      K_SNAP_LEFT,  K_SNAP_RIGHT,
-        SCREEN_TOP,          SCREEN_BOTTOM,      SCREEN_LEFT,  SCREEN_RIGHT,
-        LAYER_ABOVE,         LAYER_BELOW,        LAYER_TOP,    LAYER_BOTTOM,
-        LAYER_1,             LAYER_2,            LAYER_3,      LAYER_4,     LAYER_5,LAYER_6, LAYER_7, LAYER_8, LAYER_9,
-        CYCLE_FOCUS,         CYCLE_FOCUS_BACK,   EXIT_WM,
+        K_SNAP_TOP,          K_SNAP_BOTTOM,           K_SNAP_LEFT,         K_SNAP_RIGHT,
+        SCREEN_TOP,          SCREEN_BOTTOM,           SCREEN_LEFT,         SCREEN_RIGHT,
+        LAYER_ABOVE,         LAYER_BELOW,             LAYER_TOP,           LAYER_BOTTOM,
+        LAYER_1,             LAYER_2,                 LAYER_3,             LAYER_4,        LAYER_5,LAYER_6, LAYER_7, LAYER_8, LAYER_9,
+        CYCLE_FOCUS,         CYCLE_FOCUS_BACK,        EXIT_WM,
         INVALID_ACTION
     };
 

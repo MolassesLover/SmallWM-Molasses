@@ -4,8 +4,8 @@
 
 #include <ostream>
 
-#include "focus-cycle.h"
-#include "../utils.h"
+#include "focus-cycle.hpp"
+#include "../utils.hpp"
 
 /*
  * These constants are used to make sure that different instances of

@@ -1,5 +1,5 @@
 /** @file */
-#include "logging.h"
+#include "logging.hpp"
 
 /**
  * Does special processing for Log::endl.

@@ -6,7 +6,7 @@
 #include <ios>
 #include <list>
 
-#include "../common.h"
+#include "../common.hpp"
 
 /**
  * Handles a focus cycle for a group of windows, which provides an order

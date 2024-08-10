@@ -10,8 +10,7 @@ This is a free and open-source window manager forked from
 '[SmallWM](https://github.com/adamnew123456/SmallWM)' project.
 A few small changes were made for my own use, most notably replacing Doxygen 
 with CMake. Other than that the changes are very minimal. This isn't a serious 
-project, just something I personally use for my desktop 
-[rice](https://github.com/MolassesLover/dots).
+project, just something I personally use for my desktop rice.
 
 ## License
 

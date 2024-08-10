@@ -1,1 +1,2 @@
-{ pkgs ? import <nixpkgs> { } }: pkgs.callPackage ./smallwm-molasses.nix { }
+{ pkgs ? import <nixpkgs> { } }:
+pkgs.callPackage ./misc/nix/smallwm-molasses.nix { }

@@ -5,7 +5,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "smallwm-molasses";
   version = "1.0.0";
 
-  src = ./.;
+  src = ../../.;
 
   nativeBuildInputs = [ cmake ninja ];
   buildInputs = [ libX11 libXext libXrandr ];

@@ -70,7 +70,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ```
 
-This license was sourced from [@benhoyt](https://github.com/benhoyt) upstream
-repository of 'inih,' [here](https://github.com/benhoyt/inih/tree/4e618f77d4bae216865c5abd972d99b1ba5031e2)
+This license was sourced from [@benhoyt](https://github.com/benhoyt)'s upstream
+repository of 'inih,' [here](https://github.com/benhoyt/inih/tree/4e618f77d4bae216865c5abd972d99b1ba5031e2).
 
 [**Download**](https://raw.githubusercontent.com/benhoyt/inih/4e618f77d4bae216865c5abd972d99b1ba5031e2/LICENSE.txt)
